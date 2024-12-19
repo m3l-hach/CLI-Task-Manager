@@ -31,6 +31,7 @@ def load_todos():
 		print(f"{TODOS_FILE} corrupted, creating one")
 		todos = []
 
+# prints todos table
 def	print_all_todos():
 	print("+----+----------------------------------------+--------------------+--------------------+")
 	print("| ID |              Title                     |     created at     |       status       |")
@@ -41,10 +42,12 @@ def	print_all_todos():
 	if 	len(todos) > 0:
 		print("+----+----------------------------------------+--------------------+--------------------+")
 
+# add a task to the table
 def add_todo():
 	todo = input("Enter you to todo: ")
 	todos.append(Todo(todo,datetime.now().strftime("%m/%d, %H:%M")))
 
+# delete a task from the table
 def del_todo():
 	while True:
 		try:
@@ -57,15 +60,13 @@ def del_todo():
 		except ValueError:
 				print("please enter a valid number.")
 
+# changes the status of the task completed or not
 def change_status():
 	while True:
 		try:
 			id = int(input("id for changing status: ")) - 1
 			if id >= 0 and id < len(todos):
-				if todos[id].is_completed == False:
-					todos[id].is_completed = True
-				else:
-					todos[id].is_completed = False
+				todos[id].is_completed = not todos[id].is_completed
 				break
 			else:
 				print("Invalid ID, try again: ")
@@ -73,6 +74,7 @@ def change_status():
 			print("please enter a valid number.")
 
 load_todos()
+# basic REPL
 while True:
 	print_all_todos()
 	choice = input("(A)dd, (D)el, (C)hange status, (Q)uit: ")
