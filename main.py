@@ -44,14 +44,14 @@ def	print_all_todos():
 
 # add a task to the table
 def add_todo():
-	todo = input("Enter you to todo: ")
+	todo = input("Enter your task: ")
 	todos.append(Todo(todo,datetime.now().strftime("%m/%d, %H:%M")))
 
 # delete a task from the table
 def del_todo():
 	while True:
 		try:
-			id_to_del = int(input("Change status of: ")) - 1
+			id_to_del = int(input("Enter the ID of the task to delete:")) - 1
 			if id_to_del >= 0 and id_to_del < len(todos):
 				del todos[id_to_del]
 				break
@@ -64,7 +64,7 @@ def del_todo():
 def change_status():
 	while True:
 		try:
-			id = int(input("id for changing status: ")) - 1
+			id = int(input("Enter ID for changing status: ")) - 1
 			if id >= 0 and id < len(todos):
 				todos[id].is_completed = not todos[id].is_completed
 				break
