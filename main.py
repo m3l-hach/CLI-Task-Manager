@@ -1,4 +1,7 @@
+import json
 from datetime import datetime
+
+TODOS_FILE = "todos.json"
 
 todos = []
 
@@ -7,6 +10,26 @@ class Todo:
 		self.title = title
 		self.created_at = created_at
 		self.is_completed = is_completed
+
+
+# convert todos to json and store it in outfile
+def save_todos():
+	with open(TODOS_FILE, "w") as outfile:
+		json.dump([todo.__dict__ for todo in todos], outfile)
+
+# creating python objects from json and store them in todos
+def load_todos():
+	global todos
+	try:
+		with open(TODOS_FILE, "r") as file:
+			data = json.load(file)
+			todos = [Todo(item['title'], item['created_at'], item['is_completed']) for item in data]
+	except FileNotFoundError:
+		print(f"{TODOS_FILE} not found, creating one...")
+		todos = []
+	except json.JSONDecodeError:
+		print(f"{TODOS_FILE} corrupted, creating one")
+		todos = []
 
 def	print_all_todos():
 	print("+----+----------------------------------------+--------------------+--------------------+")
@@ -49,6 +72,7 @@ def change_status():
 		except ValueError:
 			print("please enter a valid number.")
 
+load_todos()
 while True:
 	print_all_todos()
 	choice = input("(A)dd, (D)el, (C)hange status, (Q)uit: ")
@@ -59,6 +83,7 @@ while True:
 	elif choice.lower() == 'c':
 		change_status()
 	elif choice.lower() == 'q':
+		save_todos()
 		exit(0)
 	else :
 		print("Invalid option, try again.")	
