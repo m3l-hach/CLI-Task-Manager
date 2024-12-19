@@ -33,10 +33,5 @@ A simple and interactive Python CLI-based Task Manager to help you stay organize
 
 ## Example output
 
-+----+----------------------------------------+--------------------+--------------------+
-| ID |              Title                     |     created at     |       status       |
-+----+----------------------------------------+--------------------+--------------------+
-|  1 | Buy groceries                          |    12/19, 10:30    |         ✅         |
-|  2 | Finish Python Piscine exercise         |    12/19, 12:00    |         ❌         |
-+----+----------------------------------------+--------------------+--------------------+
-(A)dd, (D)el, (C)hange status, (Q)uit:
+![image](https://github.com/user-attachments/assets/283bccb4-e6dd-4548-8bac-1002f1d2d881)
+
