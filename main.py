@@ -10,7 +10,7 @@ class Todo:
 
 def	print_all_todos():
 	print("+----+----------------------------------------+--------------------+--------------------+")
-	print("| ID |              Title                     |     created at     |      completed     |")
+	print("| ID |              Title                     |     created at     |       status       |")
 	print("+----+----------------------------------------+--------------------+--------------------+")
 
 	for i, todo in enumerate(todos):
@@ -23,26 +23,43 @@ def add_todo():
 	todos.append(Todo(todo,datetime.now().strftime("%m/%d, %H:%M")))
 
 def del_todo():
-	id_to_del = input("id of the todo to remove: ")
-	id_to_del = int(id_to_del) - 1
-	del todos[id_to_del]
+	while True:
+		try:
+			id_to_del = int(input("Change status of: ")) - 1
+			if id_to_del >= 0 and id_to_del < len(todos):
+				del todos[id_to_del]
+				break
+			else:
+				print("Invalid ID, try again: ")
+		except ValueError:
+				print("please enter a valid number.")
 
-def mark_as_complete():
-	id_completed = input("id of the todo to mark as completed: ")
-	id_completed = int(id_completed) - 1
-	todos[id_completed].is_completed = True
+def change_status():
+	while True:
+		try:
+			id = int(input("id for changing status: ")) - 1
+			if id >= 0 and id < len(todos):
+				if todos[id].is_completed == False:
+					todos[id].is_completed = True
+				else:
+					todos[id].is_completed = False
+				break
+			else:
+				print("Invalid ID, try again: ")
+		except ValueError:
+			print("please enter a valid number.")
 
 while True:
 	print_all_todos()
-	choice = input("(A)dd, (D)el, (C)ompleted, (Q)uit: ")
+	choice = input("(A)dd, (D)el, (C)hange status, (Q)uit: ")
 	if choice.lower() == 'a':
 		add_todo()
 	elif choice.lower() == 'd':
 		del_todo()
 	elif choice.lower() == 'c':
-		mark_as_complete()
+		change_status()
 	elif choice.lower() == 'q':
 		exit(0)
 	else :
-		print("invalid option, try again")	
+		print("Invalid option, try again.")	
 
