@@ -1,4 +1,5 @@
 import json
+import os
 from datetime import datetime
 
 TODOS_FILE = "todos.json"
@@ -30,6 +31,9 @@ def load_todos():
 	except json.JSONDecodeError:
 		print(f"{TODOS_FILE} corrupted, creating one")
 		todos = []
+
+def clear_screen():
+	os.system("cls" if os.name == "nt" else "clear")
 
 # prints todos table
 def	print_all_todos():
@@ -76,6 +80,7 @@ def change_status():
 load_todos()
 # basic REPL
 while True:
+	clear_screen()
 	print_all_todos()
 	choice = input("(A)dd, (D)el, (C)hange status, (Q)uit: ")
 	if choice.lower() == 'a':
