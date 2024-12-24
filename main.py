@@ -2,9 +2,47 @@ import json
 import os
 from datetime import datetime
 
+big_title = r""" _____         _      __  __                                   
+|_   _|_ _ ___| | __ |  \/  | __ _ _ __   __ _  __ _  ___ _ __ 
+  | |/ _` / __| |/ / | |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__|
+  | | (_| \__ \   <  | |  | | (_| | | | | (_| | (_| |  __/ |   
+  |_|\__,_|___/_|\_\ |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_|   
+                                               |___/           
+"""
+
+small_title = r""" _____         _    
+|_   _|_ _ ___| | __
+  | |/ _` / __| |/ /
+  | | (_| \__ \   < 
+  |_|\__,_|___/_|\_\
+                    
+ __  __                                   
+|  \/  | __ _ _ __   __ _  __ _  ___ _ __ 
+| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__|
+| |  | | (_| | | | | (_| | (_| |  __/ |   
+|_|  |_|\__,_|_| |_|\__,_|\__, |\___|_|   
+                          |___/           
+"""
+
 TODOS_FILE = "todos.json"
 
 todos = []
+
+def get_terminal_size():
+	try:
+		return os.get_terminal_size()
+	except OSError:
+		return os.get_terminal_size(80, 25)
+
+def print_title():
+	size = get_terminal_size()
+	if size.columns > 100:
+		print(big_title)
+	else:
+		print(small_title)
+		
+def clear_screen():
+	os.system("cls" if os.name == "nt" else "clear")
 
 class Todo:
 	def __init__(self, title, created_at, is_completed = False):
@@ -32,8 +70,6 @@ def load_todos():
 		print(f"{TODOS_FILE} corrupted, creating one")
 		todos = []
 
-def clear_screen():
-	os.system("cls" if os.name == "nt" else "clear")
 
 # prints todos table
 def	print_all_todos():
@@ -81,6 +117,7 @@ load_todos()
 # basic REPL
 while True:
 	clear_screen()
+	print_title()
 	print_all_todos()
 	choice = input("(A)dd, (D)el, (C)hange status, (Q)uit: ")
 	if choice.lower() == 'a':
